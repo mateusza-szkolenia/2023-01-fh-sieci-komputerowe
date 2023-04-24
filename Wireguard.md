@@ -25,6 +25,8 @@ PrivateKey = ryewurtewityriutyewurtywutyeurtyiw...
 PublicKey = 3Y+TsOJmXijSA42XLI1vbyFAAz9xBZPBz1QDrqEzTiQ=
 Endpoint = szkolenie02.alx.net.pl:51820
 AllowedIPs = 10.77.0.0/24
+# aby puścić przez WG cały ruch:
+AllowedIPs = 0.0.0.0/0
 ```
 
 Uruchomić interface:
