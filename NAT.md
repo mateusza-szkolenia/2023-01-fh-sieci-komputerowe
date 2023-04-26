@@ -3,8 +3,33 @@
 ## Konfiguracja routera
 - musi mieć dwa interfejsy sieciowe (LAN i WAN)
 
+### Ręczna konfiguracja DNS
+
+Plik `/etc/resolv.conf`
+
+```
+nameserver 1.1.1.1
+nameserver 8.8.8.8
+```
+
 ### Konfiguracja interfejsu WAN (`enp0s3`):
 - adres IP statyczny lub uzyskany przez DHCP
+
+W Debianie plik `/etc/network/interfaces`:
+
+```
+auto enp0s3
+iface enp0s3 inet dhcp
+```
+
+lub adres statyczny:
+
+```
+auto enp0s3
+iface enp0s3 inet static
+    address 192.168.0.250/24
+    gateway 192.168.0.1
+```
 
 ### Konfiguracja interfejsu LAN (`enp0s8`):
 - adres IP statyczny (np. `10.1.101.1`)
