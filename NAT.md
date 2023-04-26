@@ -3,8 +3,11 @@
 ## Konfiguracja routera
 - musi mieć dwa interfejsy sieciowe (LAN i WAN)
 
-### Konfiguracja interfejsu LAN (`enp0s3`):
+### Konfiguracja interfejsu WAN (`enp0s3`):
 - adres IP statyczny lub uzyskany przez DHCP
+
+### Konfiguracja interfejsu LAN (`enp0s8`):
+- adres IP statyczny (np. `10.1.101.1`)
 
 ### Serwer DHCP
 
@@ -19,6 +22,14 @@ dhcp-range=10.1.101.50,10.1.101.80,12h
 ```
 
 (użyć odpowieniej nazwy interfejsu i wybranego zakresu adresów)
+
+#### `udhcpd`
+
+(alternatywny serwer DHCP z pakietu `busybox`)
+
+#### `isc-dhcp-server`
+
+(duży serwer DHCP)
 
 ### Routing
 
