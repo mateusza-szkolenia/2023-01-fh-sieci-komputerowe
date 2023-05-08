@@ -38,4 +38,24 @@ Potem:
 - albo z LTS na kolejny LTS (np. 20.04 LTS do 22.04 LTS)
 - albo tylko kolejne wydania: (np. 22.04 LTS na 22.10, potem 22.10 na 23.04 itd.)
 
+## DNF / yum / rpm
+
+Systemy:
+- RedHat Enterprise Linux
+- CentOS
+- Rocky Linux
+- AlmaLinux
+
+### Polecenia
+
+- `dnf update -y` - aktualizacja listy pakietów + pakietów
+
+## vpm / xbps
+
+System: Void Linux
+
+### Polecenia
+
+- `vpm update` - aktualizacja systemu
+- `xbps-install -Su` - j.w.
 
