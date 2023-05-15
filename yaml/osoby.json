@@ -1,0 +1,91 @@
+[
+    {
+        "imie": "Marek",
+        "nazwisko": "L.",
+        "waga": 94.8,
+        "wzrost": 1.73,
+        "rok_urodzenia": 1961
+    },
+    {
+        "imie": "Marek",
+        "nazwisko": "Xxx Yyy",
+        "waga": 71.7,
+        "wzrost": 1.78,
+        "rok_urodzenia": 1938
+    },
+    {
+        "imie": "Borys",
+        "nazwisko": "Pppp        xxxx",
+        "waga": 75.6,
+        "wzrost": 1.84,
+        "rok_urodzenia": 1929
+    },
+    {
+        "imie": "Przemys\u0142aw",
+        "nazwisko": "C.",
+        "rok_urodzenia": 1945
+    },
+    {
+        "imie": "Przemys\u0142aw",
+        "nazwisko": "F.",
+        "waga": 74.4,
+        "wzrost": 1.87,
+        "rok_urodzenia": 1954
+    },
+    {
+        "imie": "Przemys\u0142aw",
+        "nazwisko": "I.",
+        "waga": 82.8,
+        "wzrost": 1.77,
+        "rok_urodzenia": 1960
+    },
+    {
+        "imie": "Borys",
+        "nazwisko": "Y.",
+        "waga": 83.2,
+        "wzrost": 1.57,
+        "rok_urodzenia": 1962
+    },
+    {
+        "imie": "Ester",
+        "nazwisko": "X.",
+        "waga": 63.4,
+        "wzrost": 1.6,
+        "rok_urodzenia": 1950
+    },
+    {
+        "imie": "Dariusz",
+        "nazwisko": "R.",
+        "waga": 81.3,
+        "wzrost": 1.63,
+        "rok_urodzenia": 1949
+    },
+    {
+        "imie": "Przemys\u0142aw",
+        "nazwisko": "S.",
+        "waga": 106.8,
+        "wzrost": 1.67,
+        "rok_urodzenia": 1939
+    },
+    {
+        "imie": "Dariusz",
+        "nazwisko": "Y.",
+        "waga": 50.4,
+        "wzrost": 1.81,
+        "rok_urodzenia": 1939
+    },
+    {
+        "imie": "Przemys\u0142aw",
+        "nazwisko": "D.",
+        "waga": 98.6,
+        "wzrost": 1.68,
+        "rok_urodzenia": 1952
+    },
+    {
+        "imie": "Janusz",
+        "nazwisko": "G.",
+        "waga": 98.2,
+        "wzrost": 1.6,
+        "rok_urodzenia": 1976
+    }
+]
