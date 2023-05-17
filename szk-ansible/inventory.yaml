@@ -1,0 +1,29 @@
+all:
+  vars:
+    ansible_user: root
+  hosts:
+    szk-debian:
+      ansible_host: 172.100.50.171
+    szk-void:
+      ansible_host: 172.100.50.144
+    szk-rocky9:
+      ansible_host: 172.100.50.141
+    szk-alpine:
+      ansible_host: 172.100.50.129
+      ansible_password: aaa111
+
+wazne:
+  hosts:
+    szk-debian:
+    szk-rocky9:
+
+fajne:
+  hosts:
+    szk-debian:
+    szk-void:
+
+lekkie:
+  hosts:
+    szk-void:
+    szk-alpine:
+

@@ -1,0 +1,73 @@
+---
+- name: Mój pierwszy playbook
+  hosts: all
+  tasks:
+    - name: Sprawdź czy serwery działają
+      ping:
+
+    - name: Ustaw klucz pub użytkownika root
+      authorized_key:
+        user: root
+        key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGyMPtOufp/OAGCzs5w668YxwLpGRO6gUnk6mNZ1/GtC alx@ion0
+      tags:
+        - setup
+    - name: Install python
+      package:
+        name:
+          - python3
+
+    - name: Komunikat testowy
+      debug:
+        msg: >
+          Serwer działa {{ ansible_facts.distribution }}
+          ({{ ansible_facts.pkg_mgr }})
+          RAM: {{ ansible_facts.memtotal_mb }} MB"
+
+    - name: Zainstaluj niezbędne programy
+      package:
+        name:
+          - htop
+          - bash
+          - vim
+      tags:
+        - programy
+
+    - name: Zainstaluj tcc
+      package:
+        name:
+          - tcc
+      when: ansible_facts.pkg_mgr in ['apt', 'xbps']
+      tags:
+        - programy
+
+    - name: Zainstaluje apacha (apt)
+      package:
+        name:
+          - apache2
+      when: ansible_facts.pkg_mgr in ['apt']
+      tags:
+        - programy
+
+    - name: Zainstaluje apacha (el)
+      package:
+        name:
+          - httpd
+      when: ansible_facts.pkg_mgr in ['dnf', 'yum']
+      tags:
+        - programy
+
+    - name: Załóż konto mati
+      user:
+        name: mati
+        comment: "Mateusz Adamowski"
+      tags:
+        - uzytkownicy
+
+    - name: Ustaw klucz pub użytkownika mati
+      authorized_key:
+        user: mati
+        key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGyMPtOufp/OAGCzs5w668YxwLpGRO6gUnk6mNZ1/GtC alx@ion0
+      tags:
+        - uzytkownicy
+
+

@@ -1,0 +1,8 @@
+---
+- name: Dobranoc
+  hosts: all
+  tasks:
+    - name: Wyłącz
+      shell:
+        cmd: poweroff
+
