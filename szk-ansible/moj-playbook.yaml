@@ -22,6 +22,7 @@
           Serwer działa {{ ansible_facts.distribution }}
           ({{ ansible_facts.pkg_mgr }})
           RAM: {{ ansible_facts.memtotal_mb }} MB"
+      tags: always
 
     - name: Zainstaluj niezbędne programy
       package:
@@ -69,5 +70,36 @@
         key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGyMPtOufp/OAGCzs5w668YxwLpGRO6gUnk6mNZ1/GtC alx@ion0
       tags:
         - uzytkownicy
+
+    - name: Zainstaluj uptimed
+      package:
+        name:
+          - uptimed
+      when: ansible_facts.pkg_mgr not in ['apk']
+      tags: uptimed
+
+    - name: Wrzuć plik konfiguracyjny uptimed
+      template:
+        src: templates/uptimed.conf.j2
+        dest: /etc/uptimed.conf
+        owner: root
+        group: root
+        mode: '0644'
+      tags: uptimed
+      register: uptimed_conf_template
+
+        #    - name: Pokaż wynik poprzedniego kroku
+        #      debug:
+        #        var: uptimed_conf_template
+        #      tags: uptimed
+
+    - name: Przeładuj usługę uptimed
+      service:
+        name: uptimed
+        state: restarted
+      when: uptimed_conf_template.changed == True
+      tags: uptimed
+
+
 
 
