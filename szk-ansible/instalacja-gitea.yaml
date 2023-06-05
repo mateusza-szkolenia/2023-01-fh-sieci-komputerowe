@@ -1,0 +1,7 @@
+---
+- name: Instalacja aplikacji Gitea
+  hosts:
+  - szkolenie02
+  roles:
+  - gitea-server
+

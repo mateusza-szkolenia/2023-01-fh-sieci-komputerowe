@@ -1,0 +1,4 @@
+gitea_account_name: git
+gitea_home_dir: /opt/gitea
+gitea_version: '1.19.3'
+gitea_download_baseurl: https://dl.gitea.com/gitea

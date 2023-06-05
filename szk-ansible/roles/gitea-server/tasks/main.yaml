@@ -1,0 +1,51 @@
+---
+- name: Zainstaluj przydatne narzędzia
+  package:
+    name:
+    - git
+    - sqlite3
+- name: Załóż konto gitea
+  user:
+    name: "{{ gitea_account_name }}"
+    system: true
+    home: "{{ gitea_home_dir }}"
+    shell: /bin/bash
+- name:
+  set_fact:
+    gitea_download_url: "{{ gitea_download_baseurl }}/{{ gitea_version }}/gitea-{{ gitea_version }}-linux-amd64.xz"
+    gitea_download_filename: "gitea-{{ gitea_version }}-linux-amd64.xz"
+    gitea_exec_filename: "gitea-{{ gitea_version }}-linux-amd64"
+- name: Pokaż zmienne
+  debug:
+    msg: |
+      URL: {{ gitea_download_url }}
+      FN: {{ gitea_download_filename }}
+      bin: {{ gitea_exec_filename }}
+- name: Sprawdź czy gitea jest już pobrana
+  stat:
+    path: "{{ gitea_home_dir }}/{{ gitea_download_filename }}"
+  register: gitea_download_file_stat
+- name: Pobierz gitea z internetu
+  get_url:
+    url: "{{ gitea_download_url }}"
+    dest: "{{ gitea_home_dir }}"
+  when: gitea_download_file_stat.stat.exists == False
+- name: Sprawdź czy gitea jest już rozpakowana
+  stat:
+    path: "{{ gitea_home_dir }}/{{ gitea_exec_filename }}"
+  register: gitea_exec_file_stat
+- name: Rozpakuj plik gitea
+  shell:
+    cmd: "unxz -k {{ gitea_home_dir }}/{{ gitea_download_filename }}"
+  when: gitea_exec_file_stat.stat.exists == False
+- name: Popraw prawa dostępu
+  file:
+    path: '{{ gitea_home_dir }}/{{ gitea_exec_filename }}'
+    mode: '0755'
+- name: Create a symbolic link
+  file:
+    src: '{{ gitea_home_dir }}/{{ gitea_exec_filename }}'
+    dest: '{{ gitea_home_dir }}/gitea'
+    owner: '{{ gitea_account_name }}'
+    group: '{{ gitea_account_name }}'
+    state: link

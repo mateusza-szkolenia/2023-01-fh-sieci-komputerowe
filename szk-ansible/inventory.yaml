@@ -2,14 +2,16 @@ all:
   vars:
     ansible_user: root
   hosts:
+    szkolenie02:
+      ansible_host: 164.92.187.104
     szk-debian:
-      ansible_host: 172.100.50.171
+      ansible_host: fe80::a00:27ff:fe12:8477%wlp4s0
     szk-void:
-      ansible_host: 172.100.50.144
+      ansible_host: fe80::a00:27ff:fea3:d14c%wlp4s0
     szk-rocky9:
-      ansible_host: 172.100.50.141
+      ansible_host: fe80::a00:27ff:fe63:f68%wlp4s0
     szk-alpine:
-      ansible_host: 172.100.50.129
+      ansible_host: fe80::a00:27ff:fed6:1d6d%wlp4s0
       ansible_password: aaa111
 
 wazne:
