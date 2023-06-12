@@ -1,6 +1,6 @@
 ---
 - name: Dobranoc
-  hosts: all
+  hosts: wirtualne
   tasks:
     - name: Wyłącz
       shell:

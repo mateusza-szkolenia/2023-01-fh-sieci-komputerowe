@@ -4,6 +4,8 @@ all:
   hosts:
     szkolenie02:
       ansible_host: 164.92.187.104
+    szkolenie03:
+      ansible_host: 170.64.182.61
     szk-debian:
       ansible_host: fe80::a00:27ff:fe12:8477%wlp4s0
     szk-void:
@@ -14,18 +16,9 @@ all:
       ansible_host: fe80::a00:27ff:fed6:1d6d%wlp4s0
       ansible_password: aaa111
 
-wazne:
+wirtualne:
   hosts:
     szk-debian:
     szk-rocky9:
-
-fajne:
-  hosts:
-    szk-debian:
-    szk-void:
-
-lekkie:
-  hosts:
     szk-void:
     szk-alpine:
-
