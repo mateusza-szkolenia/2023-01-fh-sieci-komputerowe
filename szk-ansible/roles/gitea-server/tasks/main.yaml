@@ -2,18 +2,20 @@
 - name: Zainstaluj przydatne narzędzia
   package:
     name:
-    - git
-    - sqlite3
+      - git
+      - sqlite3
 - name: Załóż konto gitea
   user:
     name: "{{ gitea_account_name }}"
     system: true
     home: "{{ gitea_home_dir }}"
     shell: /bin/bash
-- name:
+- name: Ustaw zmienną z nazwą pliku
   set_fact:
-    gitea_download_url: "{{ gitea_download_baseurl }}/{{ gitea_version }}/gitea-{{ gitea_version }}-linux-amd64.xz"
     gitea_download_filename: "gitea-{{ gitea_version }}-linux-amd64.xz"
+- name: Ustaw zmienne z URL do pobrania
+  set_fact:
+    gitea_download_url: "{{ gitea_download_baseurl }}/{{ gitea_version }}/{{ gitea_download_filename }}"
     gitea_exec_filename: "gitea-{{ gitea_version }}-linux-amd64"
 - name: Pokaż zmienne
   debug:
@@ -49,3 +51,62 @@
     owner: '{{ gitea_account_name }}'
     group: '{{ gitea_account_name }}'
     state: link
+- name: Stwórz Token JWT
+  # todo: zapisywać token do pliku a nie zmiennej
+  # todo: generować token tylko jeśli go nie ma
+  shell:
+    cmd: "{{ gitea_home_dir }}/gitea generate secret JWT_SECRET"
+  register: cmd_gitea_gen_jwt_secret
+  tags: tokens
+  # when: gitea_token_file_exists...
+- name: Stwórz internal token
+  shell:
+    cmd: "{{ gitea_home_dir }}/gitea generate secret INTERNAL_TOKEN"
+  register: cmd_gitea_gen_inttok
+  tags: tokens
+- name: Ustaw zmienne
+  set_fact:
+    gitea_addr: "{{ ansible_default_ipv4.address }}"
+    gitea_jwt_secret: "{{ cmd_gitea_gen_jwt_secret.stdout }}"
+    gitea_internal_token: "{{ cmd_gitea_gen_inttok.stdout }}"
+  tags: tokens
+- name: Debug
+  debug:
+    msg: "gitea addr = {{ gitea_addr }} jwt token {{ gitea_jwt_secret }}"
+  tags: tokens
+- name: Załóż katalog konf
+  file:
+    path: "{{ gitea_home_dir }}/custom"
+    state: directory
+    mode: '0700'
+    owner: '{{ gitea_account_name }}'
+    group: '{{ gitea_account_name }}'
+  tags: tokens
+- name: Załóż katalog konf2
+  file:
+    path: "{{ gitea_home_dir }}/custom/conf"
+    state: directory
+    mode: '0700'
+    owner: '{{ gitea_account_name }}'
+    group: '{{ gitea_account_name }}'
+  tags: tokens
+- name: Wrzuć konfig
+  template:
+    src: ../templates/app.ini.j2
+    dest: "{{ gitea_home_dir }}/custom/conf/app.ini"
+    owner: '{{ gitea_account_name }}'
+    group: '{{ gitea_account_name }}'
+  tags: tokens
+- name: Wrzuć plik usługi systemd
+  template:
+    src: ../templates/gitea.service.j2
+    dest: /etc/systemd/system/gitea.service
+    owner: root
+    group: root
+  tags: systemd
+- name: Uruchom usługę
+  systemd:
+    name: gitea
+    state: started
+    enabled: yes
+  tags: systemd
